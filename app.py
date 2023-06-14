@@ -39,7 +39,7 @@ prompt_template = """
 Respond to the email below in a way that is clear, concise, and professional. Use the style of writing that is outlined in the pdf.
 
 Context: {context}
-Topic: {email}
+Email: {email}
 
 """
 
@@ -53,6 +53,6 @@ chain = LLMChain(llm=llm, prompt=PROMPT)
 
 
 docs = search_index.similarity_search(email, k=4)
-inputs = [{"context": doc.page_content, "topic": email} for doc in docs]
+inputs = [{"context": doc.page_content, "email": email} for doc in docs]
 response = chain.apply(inputs)
 st.write(response)
