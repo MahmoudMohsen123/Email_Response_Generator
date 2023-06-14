@@ -51,8 +51,8 @@ llm = OpenAI(temperature=0)
 
 chain = LLMChain(llm=llm, prompt=PROMPT)
 
-
-docs = search_index.similarity_search(email, k=4)
-inputs = [{"context": doc.page_content, "email": email} for doc in docs]
-response = chain.apply(inputs)
-st.write(response)
+def generate_response(email):
+    docs = search_index.similarity_search(email, k=4)
+    inputs = [{"context": chunks, "email": email} for doc in docs]
+    response = chain.apply(inputs)
+st.write(generate_response(email))
