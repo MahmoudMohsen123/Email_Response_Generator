@@ -8,7 +8,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 import os
 def main():
-    os.environ['OPENAI_API_KEY'] = ''
+    open_api_key = "
     st.set_page_config(page_title="Email Response Generator")
     st.header("Email Response Generator 💬")
     
@@ -32,7 +32,7 @@ def main():
       chunks = text_splitter.split_text(text)
       
       # create embeddings
-      embeddings = OpenAIEmbeddings()
+      embeddings = OpenAIEmbeddings(open_api_key=open_api_key)
       search_index = FAISS.from_texts(chunks, embeddings)
       
       # show user input
@@ -49,7 +49,7 @@ Email: {email}
               template=prompt_template, input_variables=["context", "email"]
 )
 
-      llm = OpenAI(temperature=0)
+      llm = OpenAI(temperature=0,open_api_key=open_api_key)
 
       chain = LLMChain(llm=llm, prompt=PROMPT)
 
